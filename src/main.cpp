@@ -97,11 +97,6 @@ String GenerateMetrics() {
   message += "\n";
 
   for (int i = 0; i < numberOfDevices; i++) {
-    char temperatureCString[6];
-    char temperatureFString[6];
-    dtostrf(tempDevC[i], 2, 2, temperatureCString);
-    dtostrf(tempDevF[i], 2, 2, temperatureFString);
-
     String idString = "id=\"" + GetAddressToString( devAddr[i] ) + "\" ";
 
     message += "# HELP beertemp_device_temperature_celsius Current device temperature in celsius.\n";
@@ -112,7 +107,7 @@ String GenerateMetrics() {
     message += "resolution=\"";
     message +=  DS18B20.getResolution( devAddr[i] );
     message += "\"} ";
-    message += temperatureCString;
+    message += String(tempDevC[i], 2);
     message += "\n";
 
     message += "# HELP beertemp_device_temperature_fahrenheit Current device temperature in fahrenheit.\n";
@@ -123,7 +118,7 @@ String GenerateMetrics() {
     message += "resolution=\"";
     message +=  DS18B20.getResolution( devAddr[i] );
     message += "\"} ";
-    message += temperatureFString;
+    message += String(tempDevF[i], 2);
     message += "\n";
   }
 
